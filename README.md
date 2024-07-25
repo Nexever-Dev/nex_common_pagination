@@ -1,4 +1,5 @@
 
+![nexever logo](https://nexever.com/images/logo2.png)
 ## Getting started
 
 This package provides a utility class for handling pagination when the user scrolls. It triggers a function to load more data when the user reaches near the bottom of the scrollable content.

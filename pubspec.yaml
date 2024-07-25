@@ -1,6 +1,6 @@
 name: nex_common_pagination
 description: This package provides a utility class for handling pagination when the user scrolls.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Nexever-Dev/nex_common_pagination/blob/main/example/lib/main.dart
 repository: https://github.com/Nexever-Dev/nex_common_pagination.git
 
