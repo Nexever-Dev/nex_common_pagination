@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nex_common_pagination/view/pagination_widget.dart';
 
 void main() {
-  runApp( MyListView());
+  runApp(MyListView());
 }
 
 class MyListView extends StatelessWidget {
