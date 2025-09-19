@@ -45,13 +45,13 @@ class PaginationWidget extends StatelessWidget {
   ///
   /// The [child], [paginationFunction], [total], and [current] parameters are required.
   PaginationWidget({
-    Key? key,
+    super.key,
     required this.child,
     required this.paginationFunction,
     required this.total,
     required this.current,
     this.paginate,
-  }) : super(key: key);
+  });
 
   Timer? timer;
   final RxBool scrollState = true.obs;
@@ -73,13 +73,9 @@ class PaginationWidget extends StatelessWidget {
         if (total > current) {
           bool paginate = this.paginate ?? false;
           if (paginate) {
-            paginate = scrollInfo.metrics.pixels >=
-                    (scrollInfo.metrics.maxScrollExtent - 200) &&
-                scrollInfo.metrics.pixels >= 0.0;
+            paginate = scrollInfo.metrics.pixels >= (scrollInfo.metrics.maxScrollExtent - 200) && scrollInfo.metrics.pixels >= 0.0;
           } else {
-            paginate = scrollInfo.metrics.pixels >
-                    (scrollInfo.metrics.maxScrollExtent - 200) &&
-                scrollInfo.metrics.pixels > 0.0;
+            paginate = scrollInfo.metrics.pixels > (scrollInfo.metrics.maxScrollExtent - 200) && scrollInfo.metrics.pixels > 0.0;
           }
           if (paginate) {
             if (timer != null) {

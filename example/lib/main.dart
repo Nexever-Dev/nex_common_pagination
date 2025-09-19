@@ -2,30 +2,63 @@ import 'package:flutter/material.dart';
 import 'package:nex_common_pagination/view/pagination_widget.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home: MyListView(),
-    ),
-  );
+  runApp(MyApp());
 }
 
-class MyListView extends StatelessWidget {
-  final List<String> items = List.generate(50, (index) => 'Item $index');
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Pagination Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyListView(),
+    );
+  }
+}
+
+
+class MyListView extends StatefulWidget {
+  const MyListView({super.key});
+
+  @override
+  State<MyListView> createState() => _MyListViewState();
+}
+
+class _MyListViewState extends State<MyListView> {
+  final List<String> items = [];
   final int totalItems = 100;
-  final int currentItems = 50;
+  int currentItems = 0;
+  final int pageSize = 20;
+  bool isLoading = false;
 
-  MyListView({super.key});
+  @override
+  void initState() {
+    super.initState();
+    _fetchMoreItems(); // load first page
+  }
 
-  void fetchMoreItems() {
-    // Fetch more items and update the list
+  Future<void> _fetchMoreItems() async {
+    if (isLoading) return;
+    if (currentItems >= totalItems) return;
+
+    setState(() => isLoading = true);
+    await Future.delayed(const Duration(seconds: 1));
+    final newItems = List.generate(pageSize, (index) => 'Item ${currentItems + index + 1}',);
+    setState(() {
+      items.addAll(newItems);
+      currentItems = items.length;
+      isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Paginated List")),
+      appBar: AppBar(title: const Text("Paginated List")),
       body: PaginationWidget(
-        paginationFunction: fetchMoreItems,
+        paginationFunction: _fetchMoreItems,
         total: totalItems,
         current: currentItems,
         paginate: true,
